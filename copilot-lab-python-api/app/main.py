@@ -1,7 +1,7 @@
 """
 Main FastAPI application entry point.
 """
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from app.models import Item
 from app.services import ItemService
 
@@ -27,7 +27,7 @@ async def get_item(item_id: int):
     item = item_service.get_item_by_id(item_id)
     if item:
         return item
-    return {"error": "Item not found"}
+    raise HTTPException(status_code=404, detail="Item not found")
 
 
 @app.post("/items")

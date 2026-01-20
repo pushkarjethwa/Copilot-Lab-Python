@@ -57,5 +57,5 @@ def test_get_item_by_id():
 def test_get_nonexistent_item():
     """Test getting an item that doesn't exist."""
     response = client.get("/items/9999")
-    assert response.status_code == 200
-    assert "error" in response.json()
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Item not found"
